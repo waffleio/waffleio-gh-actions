@@ -1,4 +1,4 @@
-# 🏃🏃🏃 GitHub Actions from Waffle.io
+# GitHub Actions from Waffle.io 🏃🏃🏃 
 
 [GitHub Actions](https://github.com/features/actions) are a great way to automate and customize your team's workflow in GitHub 🏃.  
 
