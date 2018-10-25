@@ -1,0 +1,31 @@
+{
+  "name": "actions_prappreciation",
+  "version": "0.0.1",
+  "description": "A basic GitHub Action to appreciate contributors for creating a new PR.",
+  "engines": {
+    "node": ">= 8.12.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adamzolyak/actions_prappreciation.git"
+  },
+  "keywords": [
+    "github",
+    "github-action",
+    "github-actions"
+  ],
+  "author": "Adam Zolyak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adamzolyak/actions_prappreciation/issues"
+  },
+  "homepage": "https://github.com/adamzolyak/actions_prappreciation#readme",
+  "dependencies": {
+    "@octokit/rest": "^15.15.1"
+  }
+}
