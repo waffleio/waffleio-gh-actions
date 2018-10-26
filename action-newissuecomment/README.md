@@ -24,7 +24,7 @@ workflow "Comment on New Issues" {
 }
 
 action "AddComment" {
-  uses = "adamzolyak/actions_prappreciation@master"
+  uses = "waffleio/gh-actions/action-newissuecomment@master"
   secrets = ["GITHUB_TOKEN"]
 }
 ```
