@@ -38,6 +38,8 @@ async function checklistChecker() {
     eventIssueNumber = eventJSON.issue.number
     eventIssueBody = eventJSON.issue.body
 
+    console.log('event issue body: ' + eventIssueBody)
+
     console.log('event action: ' + eventAction)
 
     //if a new issue was opened 
@@ -74,7 +76,6 @@ async function checklistChecker() {
     }
 
     if (eventAction === 'closed') {
-        console.log("running checklist check")
 
         var regex1 = RegExp('-\[ \]');
 
