@@ -46,7 +46,29 @@ async function checklistChecker() {
 
         var regex1 = RegExp('-\[ \]');
 
-        console.log('open checklist items: ' + regex1.test(eventIssueBody));
+        let incompleteChecklist = regex1.test(eventIssueBody)
+
+        if (incompleteChecklist) {
+            //add label 
+            octokit.issues.addLabels({
+                owner: eventOwner,
+                repo: eventRepo,
+                number: eventIssueNumber,
+                labels: ['Incomplete Tasks']
+            }).then(({ data, headers, status }) => {
+                // handle data
+            })
+        } else {
+            //remove label 
+            octokit.issues.addLabels({
+                owner: eventOwner,
+                repo: eventRepo,
+                number: eventIssueNumber,
+                labels: 'Incomplete Tasks'
+            }).then(({ data, headers, status }) => {
+                // handle data
+            })
+        }
     }
 
     if (eventAction === 'closed') {
@@ -74,6 +96,16 @@ async function checklistChecker() {
                 repo: eventRepo,
                 number: eventIssueNumber,
                 body: "There is one or more incomplete checklist items on this issue.  Please complete or remove the incomplete checklist items.  Reopening the issue."
+            }).then(({ data, headers, status }) => {
+                // handle data
+            })
+        } else {
+            //remove label 
+            octokit.issues.addLabels({
+                owner: eventOwner,
+                repo: eventRepo,
+                number: eventIssueNumber,
+                labels: 'Incomplete Tasks'
             }).then(({ data, headers, status }) => {
                 // handle data
             })
