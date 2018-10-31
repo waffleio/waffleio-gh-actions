@@ -44,7 +44,7 @@ async function checklistChecker() {
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
         
         //check if there are incomplete checklist items        
-        let regex1 = RegExp('- \\[ \\]');
+        let regex1 = RegExp('- \\[ \\]')
         let incompleteChecklist = regex1.test(eventIssueBody)
 
         if (incompleteChecklist) {
@@ -80,7 +80,7 @@ async function checklistChecker() {
     if (eventAction === 'closed') {
 
         //check if there are incomplete checklist items    
-        let regex2 = RegExp('- \\[ \\]');=
+        let regex2 = RegExp('- \\[ \\]')
         let incompleteChecklist = regex2.test(eventIssueBody)
 
         console.log('incompleteChecklist: ' + incompleteChecklist)
