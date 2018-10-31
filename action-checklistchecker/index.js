@@ -44,7 +44,7 @@ async function checklistChecker() {
 
     //if a new issue was opened 
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
-        let regex1 = RegExp('-\[ \]');
+        let regex1 = RegExp('- \\[ \\]');
 
         let incompleteChecklist = regex1.test(eventIssueBody)
 
@@ -77,7 +77,7 @@ async function checklistChecker() {
 
     if (eventAction === 'closed') {
 
-        let regex2 = RegExp('-\[ \]');
+        let regex2 = RegExp('- \\[ \\]');
 
         let incompleteChecklist = regex2.test(eventIssueBody)
 
