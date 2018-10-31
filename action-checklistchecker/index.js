@@ -42,13 +42,13 @@ async function checklistChecker() {
 
     //if a new issue was opened 
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
-        console.log("running checklist check")
-
         var regex1 = RegExp('-\[ \]');
 
         let incompleteChecklist = regex1.test(eventIssueBody)
 
         if (incompleteChecklist) {
+            console.log("open - incomplete checklist - labeling")
+
             //add label 
             octokit.issues.addLabels({
                 owner: eventOwner,
@@ -59,8 +59,10 @@ async function checklistChecker() {
                 // handle data
             })
         } else {
+            console.log("open - complete checklist - removing label")
+
             //remove label 
-            octokit.issues.addLabels({
+            octokit.issues.removeLabel({
                 owner: eventOwner,
                 repo: eventRepo,
                 number: eventIssueNumber,
@@ -79,13 +81,24 @@ async function checklistChecker() {
         let incompleteChecklist = regex1.test(eventIssueBody)
 
         if (incompleteChecklist) {
-        
+            console.log("closed - incomplete checklist - reopening and labeling")
+            
             //reopen the issue
             octokit.issues.edit({
                 owner: eventOwner,
                 repo: eventRepo,
                 number: eventIssueNumber,
                 state: 'open'
+            }).then(({ data, headers, status }) => {
+                // handle data
+            })
+
+            //add label 
+            octokit.issues.addLabels({
+                owner: eventOwner,
+                repo: eventRepo,
+                number: eventIssueNumber,
+                labels: ['Incomplete Tasks']
             }).then(({ data, headers, status }) => {
                 // handle data
             })
@@ -100,8 +113,10 @@ async function checklistChecker() {
                 // handle data
             })
         } else {
+            console.log("closed - complete checklist - removing label")
+
             //remove label 
-            octokit.issues.addLabels({
+            octokit.issues.removeLabel({
                 owner: eventOwner,
                 repo: eventRepo,
                 number: eventIssueNumber,
