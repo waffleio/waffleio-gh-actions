@@ -33,8 +33,6 @@ async function checklistChecker() {
     eventData = await readFilePromise('../github/workflow/event.json')
     eventJSON = JSON.parse(eventData) 
 
-    console.log(eventJSON)
-
     //set eventAction and eventIssueNumber
     eventAction = eventJSON.action
     eventIssueNumber = eventJSON.issue.number
@@ -51,6 +49,36 @@ async function checklistChecker() {
         console.log('open checklist items: ' + regex1.test(eventIssueBody));
     }
 
+    if (eventAction === 'closed') {
+        console.log("running checklist check")
+
+        var regex1 = RegExp('-\[ \]');
+
+        let incompleteChecklist = regex1.test(eventIssueBody)
+
+        if (incompleteChecklist) {
+        
+            //reopen the issue
+            octokit.issues.edit({
+                owner: eventOwner,
+                repo: eventRepo,
+                number: eventIssueNumber,
+                state: 'open'
+            }).then(({ data, headers, status }) => {
+                // handle data
+            })
+
+            //add a comment 
+            octokit.issues.createComment({
+                owner: eventOwner,
+                repo: eventRepo,
+                number: eventIssueNumber,
+                body: "There is one or more incomplete checklist items on this issue.  Please complete or remove the incomplete checklist items.  Reopening the issue."
+            }).then(({ data, headers, status }) => {
+                // handle data
+            })
+        }
+    }
 }
 
 //run the function
