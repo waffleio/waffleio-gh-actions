@@ -38,24 +38,17 @@ async function checklistChecker() {
     //set eventAction and eventIssueNumber
     eventAction = eventJSON.action
     eventIssueNumber = eventJSON.issue.number
+    eventIssueBody = eventJSON.issue.body
 
     console.log('event action: ' + eventAction)
 
     //if a new issue was opened 
-    if (eventAction === 'opened' || eventAction === 'edited') {
+    if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
         console.log("running checklist check")
 
-        /*
-        //add a comment to the new issue
-        octokit.issues.createComment({
-          owner: eventOwner,
-          repo: eventRepo,
-          number: eventIssueNumber,
-          body: "🎉 Thanks for opening a new issue!  This community is successful because of it's contributors!  To help make sure your issue gets the attention it deserves, check out our [Contributing Guidelines](../blob/master/CONTRIBUTING.md)."
-        }).then(({ data, headers, status }) => {
-          // handle data
-        })
-        */
+        var regex1 = RegExp('-\[ \]');
+
+        console.log('open checklist items: ' + regex1.test(eventIssueBody));
     }
 
 }
