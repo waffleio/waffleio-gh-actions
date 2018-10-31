@@ -68,7 +68,7 @@ async function checklistChecker() {
                 owner: eventOwner,
                 repo: eventRepo,
                 number: eventIssueNumber,
-                labels: 'Incomplete Tasks'
+                name: 'Incomplete Tasks'
             }).then(({ data, headers, status }) => {
                 // handle data
             })
@@ -123,7 +123,7 @@ async function checklistChecker() {
                 owner: eventOwner,
                 repo: eventRepo,
                 number: eventIssueNumber,
-                labels: 'Incomplete Tasks'
+                name: 'Incomplete Tasks'
             }).then(({ data, headers, status }) => {
                 // handle data
             })
