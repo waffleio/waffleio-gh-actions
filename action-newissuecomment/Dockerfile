@@ -5,9 +5,9 @@ LABEL "com.github.actions.description"="Appreciate the person who created a new 
 LABEL "com.github.actions.icon"="thumbs-up"
 LABEL "com.github.actions.color"="green"
 
-LABEL "repository"="http://github.com/adamzolyak/actions-helloworld"
-LABEL "homepage"="http://www.tinkurlab.com"
-LABEL "maintainer"="Octocat <adam@tinkurlab.com>"
+LABEL "repository"="http://github.com/waffleio/gh-actions"
+LABEL "homepage"="http://www.waffle.io"
+LABEL "maintainer"="Octocat <adam@waffle.com>"
 
 ADD entrypoint.sh /action/entrypoint.sh
 ADD package.json /action/package.json
