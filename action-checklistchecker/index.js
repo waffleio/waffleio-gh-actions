@@ -38,17 +38,17 @@ async function checklistChecker() {
     eventIssueNumber = eventJSON.issue.number
     eventIssueBody = eventJSON.issue.body
 
-    console.log('event issue body: ' + eventIssueBody)
-
     console.log('event action: ' + eventAction)
 
-    //if a new issue was opened 
+    //if an issue was opened, edited, or reopened
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
+        
+        //check if there are incomplete checklist items        
         let regex1 = RegExp('- \\[ \\]');
-
         let incompleteChecklist = regex1.test(eventIssueBody)
 
         if (incompleteChecklist) {
+            //if there are incomplete checklist items  
             console.log("open - incomplete checklist - labeling")
 
             //add label 
@@ -61,6 +61,7 @@ async function checklistChecker() {
                 // handle data
             })
         } else {
+            //if there are NOT incomplete checklist items
             console.log("open - complete checklist - removing label")
 
             //remove label 
@@ -75,15 +76,17 @@ async function checklistChecker() {
         }
     }
 
+    //if an issue was closed
     if (eventAction === 'closed') {
 
-        let regex2 = RegExp('- \\[ \\]');
-
+        //check if there are incomplete checklist items    
+        let regex2 = RegExp('- \\[ \\]');=
         let incompleteChecklist = regex2.test(eventIssueBody)
 
         console.log('incompleteChecklist: ' + incompleteChecklist)
 
         if (incompleteChecklist) {
+            //if there are incomplete checklist items
             console.log("closed - incomplete checklist - reopening and labeling")
             
             //reopen the issue
@@ -116,6 +119,7 @@ async function checklistChecker() {
                 // handle data
             })
         } else {
+            //if there are NOT incomplete checklist items
             console.log("closed - complete checklist - removing label")
 
             //remove label 

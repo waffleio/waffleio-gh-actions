@@ -4,7 +4,7 @@ A [GitHub Action](https://github.com/features/actions) that helps make checklist
 
 ## How It Works
 
-This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo.  The action checks if the event is of type action = `opened` and posts a comment to the issue thanking the user for their contribution.  
+This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo.  The action checks if there are incomplete checklist items `- [ ] to do` in markdown in the issue's description.  If there is 1 or > incomplete checklist items, the action label the issue with "Incomplete Items".  Also, if the issue is closed with incomplete checklist items, the action will reopen the issue and comment on the issue.
 
 ## Installation
 
@@ -14,18 +14,17 @@ To setup this action:
 1. Create a `.github/main.workflow` in your GitHub repo.
 2. Add the following code to the `main.workflow` file and commit it to the repo's `master` branch.
 ```
-workflow "Comment on New Issues" {
-  resolves = ["AddComment"]
+workflow "Issue Checklist Checker" {
+  resolves = ["CheckChecklist"]
   on = "issues"
 }
 
-action "AddComment" {
+action "CheckChecklist" {
   uses = "waffleio/gh-actions/action-checklistchecker@master"
   secrets = ["GITHUB_TOKEN"]
 }
 ```
-3. Create a new issue!  
-4. Clock on the Actions tab in your repo.  You should see a new action that was recently triggered when you created the new issue.  After a few seconds, there should be a comment on your issue.
+3. Whenever you create, update, close, or reopen an issue, the action will run!
 
 ### Debugging
 If you've followed the steps above and it isn't working, trying the following:
@@ -34,23 +33,12 @@ If you've followed the steps above and it isn't working, trying the following:
 
 ## Extending
 
-Fork 🍴 this repo to use as a starting point to create your own GitHub Actions.  What will you automate in your workflow 🛠🤖💪?
-
 Some helpful resources:
 * [GitHub Actions Docs](https://developer.github.com/actions/)
 * [Octokit Rest.js Docs](https://octokit.github.io/rest.js/#api-Issues-createComment)
 * [Dockerfile Docs](https://docs.docker.com/engine/reference/builder/)
 
 ## Examples
-
-Example of this action running on a new issue:
-![GitHub Logo](/docs/action_example.png)
-
-Example of the Actions tab show this action running:
-![GitHub Logo](/docs/actions_tab.png)
-
-Example og the log details from this action running:
-![GitHub Logo](/docs/action_debug.png)
 
 ## Contributing
 
