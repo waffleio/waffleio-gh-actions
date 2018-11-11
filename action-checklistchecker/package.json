@@ -1,0 +1,31 @@
+{
+  "name": "actions_checklistchecker",
+  "version": "0.0.1",
+  "description": "A GitHub Action to make checklists more useful in issues.",
+  "engines": {
+    "node": ">= 8.12.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/waffleio/gh-actions.git"
+  },
+  "keywords": [
+    "github",
+    "github-action",
+    "github-actions"
+  ],
+  "author": "Adam Zolyak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/waffleio/gh-actions/issues"
+  },
+  "homepage": "https://waffleio/gh-actions/",
+  "dependencies": {
+    "@octokit/rest": "^15.15.1"
+  }
+}

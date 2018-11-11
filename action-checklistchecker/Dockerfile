@@ -1,7 +1,7 @@
 FROM node:8-slim
 
-LABEL "com.github.actions.name"="PR Appreciation"
-LABEL "com.github.actions.description"="Appreciate the person who created a new PR!"
+LABEL "com.github.actions.name"="Issue Checklist Checker"
+LABEL "com.github.actions.description"="Making checklists more useful in GitHub Issues."
 LABEL "com.github.actions.icon"="thumbs-up"
 LABEL "com.github.actions.color"="green"
 
