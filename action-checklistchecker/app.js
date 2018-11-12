@@ -34,14 +34,14 @@ async function checklistChecker() {
     //set label for issues with incomplete checklist items
     const incompleteTasksLabel = 'Incomplete Tasks'
 
-    console.log('event action: ' + eventAction)
-
     //if an issue was opened, edited, or reopened
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
         
         if (incompleteChecklist) {
+            //open issue - incomplete checklist - adding label
             helpers.addLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         } else {
+            //open issue - no incomplete checklist - removing label
             helpers.removeLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         }
     }
@@ -50,9 +50,11 @@ async function checklistChecker() {
     if (eventAction === 'closed') { 
 
         if (incompleteChecklist) {
+             //closed issue - incomplete checklist - adding label
             helpers.reopenIssue(octokit, eventOwner, eventRepo, eventIssueNumber)
             helpers.addLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         } else {
+             //closed issue - no incomplete checklist - removing label
             helpers.removeLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         }
     }
