@@ -6,6 +6,8 @@ module.exports.readFilePromise = function(filename) {
         if (err) reject(err);
         else resolve(data);
         })
+    }).catch(err => {
+        console.log(err)
     })
 }
 

@@ -5,6 +5,6 @@
         "number": 19,
         "title": "newissue3",
         "state": "open",
-        "body": "checklist\r\n- [x] to do\r\n- [x] to do\r\n- [x] to do\r\n- [ ] to do\r\n- [ ] to do\r\n- [ ] to do"
+        "body": "checklist - [x] to do - [x] to do"
     }
 }

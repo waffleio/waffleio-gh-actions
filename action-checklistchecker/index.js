@@ -16,21 +16,20 @@ octokit.authenticate({
 const eventOwnerAndRepo = process.env.GITHUB_REPOSITORY	
 const eventOwner = helpers.getOwner(eventOwnerAndRepo)
 const eventRepo = helpers.getRepo(eventOwnerAndRepo)
-
   
 async function checklistChecker() {
 
     //read contents of action's event.json
-    eventData = await helpers.readFilePromise('..' + process.env.GITHUB_EVENT_PATH)
-    eventJSON = JSON.parse(eventData) 
-
+    const eventData = await helpers.readFilePromise('..' + process.env.GITHUB_EVENT_PATH)
+    const eventJSON = JSON.parse(eventData) 
+   
     //set eventAction and eventIssueNumber
     eventAction = eventJSON.action
     eventIssueNumber = eventJSON.issue.number
     eventIssueBody = eventJSON.issue.body
 
     //check if there are incomplete checklist items        
-    let incompleteChecklist = helpers.checkForIncompleteChecklist(eventIssueBody)
+    const incompleteChecklist = helpers.checkForIncompleteChecklist(eventIssueBody)
 
     //set label for issues with incomplete checklist items
     const incompleteTasksLabel = 'Incomplete Tasks'
@@ -39,7 +38,7 @@ async function checklistChecker() {
 
     //if an issue was opened, edited, or reopened
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
-
+        
         if (incompleteChecklist) {
             helpers.addLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         } else {
@@ -61,3 +60,5 @@ async function checklistChecker() {
 
 //run the function
 checklistChecker()
+
+module.exports.checklistChecker = checklistChecker
