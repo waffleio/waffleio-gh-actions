@@ -4,7 +4,7 @@ A [GitHub Action](https://github.com/features/actions) that helps make checklist
 
 ## How It Works
 
-This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo.  The action checks if there are incomplete checklist items `- [ ] to do` in markdown in the issue's description.  If there is 1 or > incomplete checklist items, the action label the issue with "Incomplete Items".  Also, if the issue is closed with incomplete checklist items, the action will reopen the issue and comment on the issue.
+This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo.  The action checks if there are incomplete checklist items `- [ ] to do` in markdown in the issue's description.  If there is 1 or > incomplete checklist items, the action labels the issue with "Incomplete Items".  Also, if the issue is closed with incomplete checklist items, the action will reopen the issue and comment on the issue.
 
 ## Installation
 

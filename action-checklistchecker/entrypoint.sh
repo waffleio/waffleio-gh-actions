@@ -11,5 +11,5 @@ echo date
 npm install
 echo date
 
-node index.js
+node app.js
 echo date
