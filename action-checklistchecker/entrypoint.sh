@@ -1,15 +1,15 @@
 #!/bin/bash
 
 echo "starting bash..."
-echo date
+echo $(date)
 
 echo "current working directory is " $PWD
 cd ../../
 cd /action
-echo date
+echo $(date)
 
 npm install
-echo date
+echo $(date)
 
-node index.js
-echo date
+node app.js
+echo $(date)
