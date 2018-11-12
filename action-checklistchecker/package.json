@@ -5,9 +5,9 @@
   "engines": {
     "node": ">= 8.12.0"
   },
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
+    "start": "node app.js",
     "test": "GITHUB_TOKEN='00000' GITHUB_REPOSITORY='waffleio/waffle.io' GITHUB_EVENT_PATH='./tests/fixtures/actionTrigger.json' jest --watchAll"
   },
   "repository": {

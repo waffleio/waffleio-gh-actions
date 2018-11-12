@@ -1,5 +1,5 @@
 
-const app = require('../index')
+const app = require('../app')
 const helpers = require('../helpers')
 
 jest.mock('../helpers')
