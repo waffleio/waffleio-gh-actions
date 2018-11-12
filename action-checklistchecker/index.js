@@ -1,5 +1,7 @@
 console.log("started nodejs...")
 
+const helpers = require('./helpers')
+
 //require octokit rest.js 
 //more info at https://github.com/octokit/rest.js
 const octokit = require('@octokit/rest')()
@@ -12,25 +14,14 @@ octokit.authenticate({
 
 //set eventOwner and eventRepo based on action's env variables
 const eventOwnerAndRepo = process.env.GITHUB_REPOSITORY	
-const slicePos1 = eventOwnerAndRepo.indexOf("/");
-const eventOwner = eventOwnerAndRepo.slice(0, slicePos1);
-const eventRepo = eventOwnerAndRepo.slice(slicePos1 + 1, eventOwnerAndRepo.length);
+const eventOwner = helpers.getOwner(eventOwnerAndRepo)
+const eventRepo = helpers.getRepo(eventOwnerAndRepo)
 
-
-const fs = require('fs')
-function readFilePromise(filename) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filename, 'utf8', (err, data) => {
-        if (err) reject(err);
-        else resolve(data);
-        })
-    })
-}
   
 async function checklistChecker() {
 
     //read contents of action's event.json
-    eventData = await readFilePromise('../github/workflow/event.json')
+    eventData = await helpers.readFilePromise('..' + process.env.GITHUB_EVENT_PATH)
     eventJSON = JSON.parse(eventData) 
 
     //set eventAction and eventIssueNumber
@@ -38,99 +29,32 @@ async function checklistChecker() {
     eventIssueNumber = eventJSON.issue.number
     eventIssueBody = eventJSON.issue.body
 
+    //check if there are incomplete checklist items        
+    let incompleteChecklist = helpers.checkForIncompleteChecklist(eventIssueBody)
+
+    //set label for issues with incomplete checklist items
+    const incompleteTasksLabel = 'Incomplete Tasks'
+
     console.log('event action: ' + eventAction)
 
     //if an issue was opened, edited, or reopened
     if (eventAction === 'opened' || eventAction === 'edited' || eventAction === 'reopened') {
-        
-        //check if there are incomplete checklist items        
-        let regex1 = RegExp('- \\[ \\]')
-        let incompleteChecklist = regex1.test(eventIssueBody)
 
         if (incompleteChecklist) {
-            //if there are incomplete checklist items  
-            console.log("open - incomplete checklist - labeling")
-
-            //add label 
-            octokit.issues.addLabels({
-                owner: eventOwner,
-                repo: eventRepo,
-                number: eventIssueNumber,
-                labels: ['Incomplete Tasks']
-            }).then(({ data, headers, status }) => {
-                // handle data
-            })
+            helpers.addLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         } else {
-            //if there are NOT incomplete checklist items
-            console.log("open - complete checklist - removing label")
-
-            //remove label 
-            octokit.issues.removeLabel({
-                owner: eventOwner,
-                repo: eventRepo,
-                number: eventIssueNumber,
-                name: 'Incomplete Tasks'
-            }).then(({ data, headers, status }) => {
-                // handle data
-            })
+            helpers.removeLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         }
     }
 
     //if an issue was closed
-    if (eventAction === 'closed') {
-
-        //check if there are incomplete checklist items    
-        let regex2 = RegExp('- \\[ \\]')
-        let incompleteChecklist = regex2.test(eventIssueBody)
-
-        console.log('incompleteChecklist: ' + incompleteChecklist)
+    if (eventAction === 'closed') { 
 
         if (incompleteChecklist) {
-            //if there are incomplete checklist items
-            console.log("closed - incomplete checklist - reopening and labeling")
-            
-            //reopen the issue
-            octokit.issues.edit({
-                owner: eventOwner,
-                repo: eventRepo,
-                number: eventIssueNumber,
-                state: 'open'
-            }).then(({ data, headers, status }) => {
-                // handle data
-            })
-
-            //add label 
-            octokit.issues.addLabels({
-                owner: eventOwner,
-                repo: eventRepo,
-                number: eventIssueNumber,
-                labels: ['Incomplete Tasks']
-            }).then(({ data, headers, status }) => {
-                // handle data
-            })
-
-            //add a comment 
-            octokit.issues.createComment({
-                owner: eventOwner,
-                repo: eventRepo,
-                number: eventIssueNumber,
-                body: "There is one or more incomplete checklist items on this issue.  Please complete or remove the incomplete checklist items.  Reopening the issue."
-            }).then(({ data, headers, status }) => {
-                // handle data
-            })
+            helpers.reopenIssue(octokit, eventOwner, eventRepo, eventIssueNumber)
+            helpers.addLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         } else {
-            //if there are NOT incomplete checklist items
-            console.log("closed - complete checklist - removing label")
-
-            //remove label 
-            octokit.issues.removeLabel({
-                owner: eventOwner,
-                repo: eventRepo,
-                number: eventIssueNumber,
-                name: 'Incomplete Tasks'
-            }).then(({ data, headers, status }) => {
-                // handle data
-            })
+            helpers.removeLabel(octokit, eventOwner, eventRepo, eventIssueNumber, incompleteTasksLabel)
         }
     }
 }
