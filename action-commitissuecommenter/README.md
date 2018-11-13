@@ -34,7 +34,7 @@ Example of issue before work has started:
 ![GitHub Logo](./docs/issue.png)
 
 Example of creating a branch referencing issue #24 and adding a comment in the commit message:
-![GitHub Logo](./docs/brancwcomment.png)
+![GitHub Logo](./docs/branchwcomment.png)
 
 Example of issue with comment from commit:
 ![GitHub Logo](./docs/issuewcomment.png)
