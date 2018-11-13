@@ -16,6 +16,7 @@ We recommend starting by checking out our [New Issue Comment action](/action-new
 
 * [New Issue Comment action](/action-newissuecomment) - an action that thanks contributors for creating a new issue and provide a link to your repo's CONTRIBUTING.md guidelines.
 * [Issue Checklist Checker action](/action-checklistchecker) - an action that labels issues with incomplete checklists and enforces complete checklists to close issue.
+* [Commit Issue Commenter action](/action-commitissuecommenter) - an action that adds comments to an issue from commit messages.
 
 ## Contributing
 
