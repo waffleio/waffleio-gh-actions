@@ -29,3 +29,26 @@ action "CommentFromCommit" {
 3. Whenever you push changes to GitHub, the action will run!
 
 ## Examples
+
+## Extending
+
+See [extending](../README.md#extending) in main README.
+
+### To run tests locally
+
+1. run `npm install` to install dependencies
+2. run `npm test` to run tests
+
+### To run action locally
+
+1. `npm install` to install dependencies
+2. create a `dev` file with the following contents:
+```
+export GITHUB_TOKEN="12345"
+export GITHUB_REPOSITORY="adamzolyak/actions-playground"
+export GITHUB_EVENT_PATH="/action-checklistchecker/tests/fixtures/actionTrigger.json"
+
+node index.js
+```
+3. modify contents of [/tests/fixtures/actionTrigger.json](./tests/fixtures/actionTrigger.json) as needed for test data
+4. run `bash dev` to run locally
