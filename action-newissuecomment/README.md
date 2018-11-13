@@ -55,16 +55,3 @@ Example of the Actions tab show this action running:
 
 Example og the log details from this action running:
 ![GitHub Logo](/docs/action_debug.png)
-
-## Contributing
-
-### Helpful Commands
-Build
-`docker build -t pr-appreciate .`
-
-Test
-`docker run pr-appreciate`
-
-## License
-
-[ISC](LICENSE) © 2018 TopIssueBot <adam@tinkurlab.com> (www.tinkurlab.com)
