@@ -31,13 +31,13 @@ action "CommentFromCommit" {
 ## Examples
 
 Example of issue before work has started:
-![GitHub Logo](/docs/issue.png)
+![GitHub Logo](./docs/issue.png)
 
 Example of creating a branch referencing issue #24 and adding a comment in the commit message:
-![GitHub Logo](/docs/brancwcomment.png)
+![GitHub Logo](./docs/brancwcomment.png)
 
 Example of issue with comment from commit:
-![GitHub Logo](/docs/issuewcomment.png)
+![GitHub Logo](./docs/issuewcomment.png)
 
 ## Extending
 
