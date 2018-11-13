@@ -2,7 +2,7 @@ FROM node:8-slim
 
 LABEL "com.github.actions.name"="Issue Checklist Checker"
 LABEL "com.github.actions.description"="Making checklists more useful in GitHub Issues."
-LABEL "com.github.actions.icon"="check-circle"
+LABEL "com.github.actions.icon"="check-square"
 LABEL "com.github.actions.color"="green"
 
 LABEL "repository"="http://github.com/waffleio/gh-actions"
