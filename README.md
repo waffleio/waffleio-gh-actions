@@ -27,6 +27,18 @@ This project uses [Waffle.io](https://waffle.io/waffleio/waffle.io) to keep trac
 
 [![Waffle.io - Columns and their card count](https://badge.waffle.io/waffleio/waffle.io.svg?columns=all)](https://waffle.io/waffleio/waffle.io)
 
+### Debugging
+If you've followed the steps above and it isn't working, trying the following:
+* If you don't see an Actions tab in your repo, make sure your repo is private and make sure you've been accepted into the private beta.
+* If you see the Actions tab but there isn't a comment on your new issue, click on the Log link on the action to view the log and check for errors.
+
+## Extending
+
+Some helpful resources:
+* [GitHub Actions Docs](https://developer.github.com/actions/)
+* [Octokit Rest.js Docs](https://octokit.github.io/rest.js/#api-Issues-createComment)
+* [Dockerfile Docs](https://docs.docker.com/engine/reference/builder/)
+
 ## License
 
 [ISC](LICENSE) © 2018 Waffle.io <team@waffle.io> (www.waffle.io)
