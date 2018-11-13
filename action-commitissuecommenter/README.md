@@ -4,7 +4,9 @@ A [GitHub Action](https://github.com/features/actions) that helps your team comm
 
 ## How It Works
 
-This GitHub Action runs when an [`push` event webhook](https://developer.github.com/v3/activity/events/types/#pushevent) is fired in your GitHub repo.  The action checks for a `#comment your message goes here` in commit messages and added them as a comment on the related issue if the branch name includes the issue number in the `#issueNumber-something-something` format.
+This GitHub Action runs when an [`push` event webhook](https://developer.github.com/v3/activity/events/types/#pushevent) is fired in your GitHub repo.  The action checks for a `#comment your message goes here` in commit messages and added them as a comment on the related issue if the branch name includes the issue number in the `#issueNumber-something-something` format.  You can also notify other people by @mentioning their GitHub username in the comment `#comment your message goes here and notifies @person`.
+
+Since GitHub Actions currently only support actions within the same repo, this action currently only supports comments in on issues and commit in the same repo.
 
 ## Installation
 
