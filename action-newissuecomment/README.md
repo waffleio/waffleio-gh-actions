@@ -53,5 +53,5 @@ Example of this action running on a new issue:
 Example of the Actions tab show this action running:
 ![GitHub Logo](/docs/actions_tab.png)
 
-Example og the log details from this action running:
+Example of the log details from this action running:
 ![GitHub Logo](/docs/action_debug.png)

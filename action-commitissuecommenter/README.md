@@ -30,6 +30,15 @@ action "CommentFromCommit" {
 
 ## Examples
 
+Example of issue before work has started:
+![GitHub Logo](/docs/issue.png)
+
+Example of creating a branch referencing issue #24 and adding a comment in the commit message:
+![GitHub Logo](/docs/brancwcomment.png)
+
+Example of issue with comment from commit:
+![GitHub Logo](/docs/issuewcomment.png)
+
 ## Extending
 
 See [extending](../README.md#extending) in main README.
@@ -43,10 +52,10 @@ See [extending](../README.md#extending) in main README.
 
 1. `npm install` to install dependencies
 2. create a `dev` file with the following contents:
-```
+```bash
 export GITHUB_TOKEN="12345"
 export GITHUB_REPOSITORY="adamzolyak/actions-playground"
-export GITHUB_EVENT_PATH="/action-checklistchecker/tests/fixtures/actionTrigger.json"
+export GITHUB_EVENT_PATH="/action-commitissuecommenter/tests/fixtures/actionTrigger.json"
 
 node index.js
 ```
