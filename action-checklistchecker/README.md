@@ -26,29 +26,32 @@ action "CheckChecklist" {
 ```
 3. Whenever you create, update, close, or reopen an issue, the action will run!
 
-### Debugging
-If you've followed the steps above and it isn't working, trying the following:
-* If you don't see an Actions tab in your repo, make sure your repo is private and make sure you've been accepted into the private beta.
-* If you see the Actions tab but there isn't a comment on your new issue, click on the Log link on the action to view the log and check for errors.
+## Examples
+
+Example of issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
+![GitHub Logo](./docs/issuewlabel.png)
+
+Example of re-opened issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
+![GitHub Logo](./docs/issuereopened.png)
 
 ## Extending
 
-Some helpful resources:
-* [GitHub Actions Docs](https://developer.github.com/actions/)
-* [Octokit Rest.js Docs](https://octokit.github.io/rest.js/#api-Issues-createComment)
-* [Dockerfile Docs](https://docs.docker.com/engine/reference/builder/)
+See [extending](../README.md#extending) in main README.
 
-## Examples
+### To run tests locally
 
-## Contributing
+1. run `npm install` to install dependencies
+2. run `npm test` to run tests
 
-### Helpful Commands
-Build
-`docker build -t pr-appreciate .`
+### To run action locally
 
-Test
-`docker run pr-appreciate`
+1. `npm install` to install dependencies
+2. create a `dev` file with the following contents:
+```bash
+export GITHUB_TOKEN="12345"
+export GITHUB_REPOSITORY="adamzolyak/actions-playground"
+export GITHUB_EVENT_PATH="/action-checklistchecker/tests/fixtures/actionTrigger.json"
 
-## License
-
-[ISC](LICENSE) © 2018 TopIssueBot <adam@tinkurlab.com> (www.tinkurlab.com)
+node index.js
+```
+3. modify contents of [/tests/fixtures/actionTrigger.json](./tests/fixtures/actionTrigger.json) as needed for test data

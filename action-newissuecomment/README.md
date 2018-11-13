@@ -48,23 +48,10 @@ Some helpful resources:
 ## Examples
 
 Example of this action running on a new issue:
-![GitHub Logo](/docs/action_example.png)
+![GitHub Logo](./docs/action_example.png)
 
 Example of the Actions tab show this action running:
-![GitHub Logo](/docs/actions_tab.png)
+![GitHub Logo](./docs/actions_tab.png)
 
-Example og the log details from this action running:
-![GitHub Logo](/docs/action_debug.png)
-
-## Contributing
-
-### Helpful Commands
-Build
-`docker build -t pr-appreciate .`
-
-Test
-`docker run pr-appreciate`
-
-## License
-
-[ISC](LICENSE) © 2018 TopIssueBot <adam@tinkurlab.com> (www.tinkurlab.com)
+Example of the log details from this action running:
+![GitHub Logo](./docs/action_debug.png)

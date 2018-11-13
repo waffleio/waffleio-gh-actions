@@ -1,9 +1,9 @@
 FROM node:8-slim
 
-LABEL "com.github.actions.name"="Issue Checklist Checker"
-LABEL "com.github.actions.description"="Making checklists more useful in GitHub Issues."
-LABEL "com.github.actions.icon"="check-square"
-LABEL "com.github.actions.color"="green"
+LABEL "com.github.actions.name"="Commit Issue Commenter"
+LABEL "com.github.actions.description"="Comment on issue from commit messages."
+LABEL "com.github.actions.icon"="mic"
+LABEL "com.github.actions.color"="purple"
 
 LABEL "repository"="http://github.com/waffleio/gh-actions"
 LABEL "homepage"="http://www.waffle.io"
