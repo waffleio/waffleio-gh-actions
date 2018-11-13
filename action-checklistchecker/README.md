@@ -28,6 +28,12 @@ action "CheckChecklist" {
 
 ## Examples
 
+Example of issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
+![GitHub Logo](./docs/issuewlabel.png)
+
+Example of re-opened issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
+![GitHub Logo](./docs/issuereopened.png)
+
 ## Extending
 
 See [extending](../README.md#extending) in main README.

@@ -48,10 +48,10 @@ Some helpful resources:
 ## Examples
 
 Example of this action running on a new issue:
-![GitHub Logo](/docs/action_example.png)
+![GitHub Logo](./docs/action_example.png)
 
 Example of the Actions tab show this action running:
-![GitHub Logo](/docs/actions_tab.png)
+![GitHub Logo](./docs/actions_tab.png)
 
 Example of the log details from this action running:
-![GitHub Logo](/docs/action_debug.png)
+![GitHub Logo](./docs/action_debug.png)
