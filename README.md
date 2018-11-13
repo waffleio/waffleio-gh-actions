@@ -8,15 +8,15 @@ This repo includes [GitHub Actions](https://github.com/features/actions) contrib
 
 Fork 🍴 this repo to use as a starting point to create your own GitHub Actions.  What will you automate in your workflow 🤖?
 
+## GitHub Actions from Waffle.io
+
+* 📣 [New Issue Comment action](/action-newissuecomment) - an action that thanks contributors for creating a new issue and provide a link to your repo's CONTRIBUTING.md guidelines.
+* ✅ [Issue Checklist Checker action](/action-checklistchecker) - an action that labels issues with incomplete checklists and enforces complete checklists to close issue.
+* 💬 [Commit Issue Commenter action](/action-commitissuecommenter) - an action that adds comments to an issue from commit messages.
+
 ## Create Your Own GitHub Action
 
 We recommend starting by checking out our [New Issue Comment action](/action-newissuecomment).  It's a good example of a basic GitHub Action that updates an GitHub issue via the GitHub API.
-
-## GitHub Actions from Waffle.io
-
-* [New Issue Comment action](/action-newissuecomment) - an action that thanks contributors for creating a new issue and provide a link to your repo's CONTRIBUTING.md guidelines.
-* [Issue Checklist Checker action](/action-checklistchecker) - an action that labels issues with incomplete checklists and enforces complete checklists to close issue.
-* [Commit Issue Commenter action](/action-commitissuecommenter) - an action that adds comments to an issue from commit messages.
 
 ## Contributing
 
