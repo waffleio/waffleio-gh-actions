@@ -29,16 +29,13 @@ async function checklistChecker() {
   eventIssueNumber = eventJSON.issue.number;
   eventIssueBody = eventJSON.issue.body;
 
-  console.log("event issue body:");
-  console.log(eventIssueBody);
-
   //check if there are incomplete checklist items
   const incompleteChecklist = helpers.checkForIncompleteChecklist(
     eventIssueBody
   );
 
   //set label for issues with incomplete checklist items
-  const incompleteTasksLabel = "Incomplete Tasks";
+  const incompleteTasksLabel = "📌 Incomplete Checklist";
 
   //if an issue was opened, edited, or reopened
   if (
@@ -47,7 +44,6 @@ async function checklistChecker() {
     eventAction === "reopened"
   ) {
     if (incompleteChecklist) {
-      console.log("case 1: incomplete checklist");
       //open issue - incomplete checklist - adding label
       helpers.addLabel(
         octokit,
@@ -57,7 +53,6 @@ async function checklistChecker() {
         incompleteTasksLabel
       );
     } else {
-      console.log("case 2: complete checklist");
       //open issue - no incomplete checklist - removing label
       helpers.removeLabel(
         octokit,
@@ -72,7 +67,6 @@ async function checklistChecker() {
   //if an issue was closed
   if (eventAction === "closed") {
     if (incompleteChecklist) {
-      console.log("case 3: closed - incomplete checklist");
       //closed issue - incomplete checklist - adding label
       helpers.reopenIssue(octokit, eventOwner, eventRepo, eventIssueNumber);
       helpers.addLabel(
@@ -83,7 +77,6 @@ async function checklistChecker() {
         incompleteTasksLabel
       );
     } else {
-      console.log("case 4: closed - incomplete checklist");
       //closed issue - no incomplete checklist - removing label
       helpers.removeLabel(
         octokit,
