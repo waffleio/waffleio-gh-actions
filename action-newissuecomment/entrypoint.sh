@@ -8,4 +8,4 @@ cd /action
 
 npm install
 
-node index.js
+node app.js

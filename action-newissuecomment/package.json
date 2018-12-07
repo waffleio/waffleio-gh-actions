@@ -5,10 +5,10 @@
   "engines": {
     "node": ">= 8.12.0"
   },
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
-    "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "test": "GITHUB_TOKEN='00000' GITHUB_REPOSITORY='waffleio/waffle.io' GITHUB_EVENT_PATH='./tests/fixtures/actionTrigger.json' jest --watchAll"
   },
   "repository": {
     "type": "git",
@@ -27,5 +27,8 @@
   "homepage": "https://waffleio/gh-actions/",
   "dependencies": {
     "@octokit/rest": "^15.15.1"
+  },
+  "devDependencies": {
+    "jest": "^23.6.0"
   }
 }

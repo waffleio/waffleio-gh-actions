@@ -11,7 +11,7 @@ LABEL "maintainer"="Octocat <adam@waffle.com>"
 
 ADD entrypoint.sh /action/entrypoint.sh
 ADD package.json /action/package.json
-ADD index.js /action/index.js
+ADD app.js /action/app.js
 
 RUN chmod +x /action/entrypoint.sh
 

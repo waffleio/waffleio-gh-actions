@@ -1,5 +1,7 @@
 console.log("started nodejs...")
 
+const helpers = require('./helpers')
+
 //require octokit rest.js 
 //more info at https://github.com/octokit/rest.js
 const octokit = require('@octokit/rest')()
@@ -15,23 +17,13 @@ const eventOwnerAndRepo = process.env.GITHUB_REPOSITORY
 const slicePos1 = eventOwnerAndRepo.indexOf("/");
 const eventOwner = eventOwnerAndRepo.slice(0, slicePos1);
 const eventRepo = eventOwnerAndRepo.slice(slicePos1 + 1, eventOwnerAndRepo.length);
-
-
-const fs = require('fs')
-function readFilePromise(filename) {
-    return new Promise((resolve, reject) => {
-        fs.readFile(filename, 'utf8', (err, data) => {
-        if (err) reject(err);
-        else resolve(data);
-        })
-    })
-}
-  
+ 
 async function commentOnNewIssue() {
 
     //read contents of action's event.json
-    eventData = await readFilePromise('../github/workflow/event.json')
-    eventJSON = JSON.parse(eventData) 
+    const eventData = await helpers.readFilePromise('..' + process.env.GITHUB_EVENT_PATH)
+    console.log(eventData)
+    const eventJSON = JSON.parse(eventData) 
 
     //set eventAction and eventIssueNumber
     eventAction = eventJSON.action
@@ -44,13 +36,14 @@ async function commentOnNewIssue() {
         console.log("creating welcome comment on issue")
 
         //add a comment to the new issue
-        octokit.issues.createComment({
+        await octokit.issues.createComment({
           owner: eventOwner,
           repo: eventRepo,
           number: eventIssueNumber,
           body: "🎉 Thanks for opening a new issue!  This community is successful because of it's contributors!  To help make sure your issue gets the attention it deserves, check out our [Contributing Guidelines](../blob/master/CONTRIBUTING.md)."
         }).then(({ data, headers, status }) => {
           // handle data
+          console.log('break 1')
         })
     }
 
@@ -58,3 +51,5 @@ async function commentOnNewIssue() {
 
 //run the function
 commentOnNewIssue()
+
+module.exports.commentOnNewIssue = commentOnNewIssue
