@@ -1,0 +1,10 @@
+{
+  "action": "opened",
+  "issue": {
+    "id": 376593094,
+    "number": 27,
+    "title": "newissue3",
+    "state": "open",
+    "body": "so that i want as a\r\n\r\n[bug, dup, inv]\r\n\r\nchild of #40"
+  }
+}

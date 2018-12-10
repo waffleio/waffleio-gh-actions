@@ -7,7 +7,7 @@ LABEL "com.github.actions.color"="green"
 
 LABEL "repository"="http://github.com/waffleio/gh-actions"
 LABEL "homepage"="http://www.waffle.io"
-LABEL "maintainer"="Octocat <adam@waffle.com>"
+LABEL "maintainer"="Adam Zolyak <adam@waffle.com>"
 
 ADD entrypoint.sh /action/entrypoint.sh
 ADD package.json /action/package.json
