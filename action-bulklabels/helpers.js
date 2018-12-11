@@ -22,7 +22,7 @@ module.exports.getRepo = function(eventOwnerAndRepo) {
 }
 
 module.exports.getBulkLabels = function(eventIssueBody) {
-  const regex = RegExp(/\[(.*){3}\]/)
+  const regex = RegExp(/^\[(.*){3}\]/m)
   const matches = regex.exec(eventIssueBody)
   if (matches) {
     console.log(`getBulkLabels - matches`)
