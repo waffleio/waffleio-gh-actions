@@ -4,7 +4,7 @@ A [GitHub Action](https://github.com/features/actions) to bulk add labels when c
 
 ## How It Works
 
-This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo. The action checks if there are incomplete checklist items `- [ ] to do` in markdown in the issue's description. If there is 1 or > incomplete checklist items, the action labels the issue with "Incomplete Items". Also, if the issue is closed with incomplete checklist items, the action will reopen the issue and comment on the issue.
+This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo. The action checks if there is an array of bulk labels to add `[aaa, bbb, ccc]` in markdown in the issue's description. The action works with existing labels defined in your GitHub repo; the labeler expects the first 3 characters of the label name (ex. `hel` for a "help wanted" label). If there is 1 or > bulk labels, the action labels the issue with the specified label(s).
 
 ## Installation
 
@@ -16,26 +16,26 @@ To setup this action:
 2. Add the following code to the `main.workflow` file and commit it to the repo's `master` branch.
 
 ```
-workflow "Issue Checklist Checker" {
-  resolves = ["CheckChecklist"]
+workflow "Bulk Issue Labeler" {
+  resolves = ["BulkLabel"]
   on = "issues"
 }
 
-action "CheckChecklist" {
-  uses = "waffleio/gh-actions/action-checklistchecker@master"
+action "BulkLabel" {
+  uses = "waffleio/gh-actions/action-bulklabels@master"
   secrets = ["GITHUB_TOKEN"]
 }
 ```
 
-3. Whenever you create, update, close, or reopen an issue, the action will run!
+3. Whenever you create an issue, the action will run!
 
 ## Examples
 
-Example of issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
-![GitHub Logo](./docs/issuewlabel.png)
+Example of a new issue with an array of bulk labels in the issue's description:
+![GitHub Logo](./docs/example1.png)
 
-Example of re-opened issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
-![GitHub Logo](./docs/issuereopened.png)
+Example of the issue after the bulk labels are added to the issue:
+![GitHub Logo](./docs/example2.png)
 
 ## Extending
 
