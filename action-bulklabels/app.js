@@ -34,6 +34,9 @@ async function bulkLabelAdd() {
     //check if there are bulk labels
     const bulkLabels = await helpers.getBulkLabels(eventIssueBody)
 
+    console.log(`Event Issue Body: ${eventIssueBody}`)
+    console.log(`bulkLabels: ${bulkLabels}`)
+
     //if one or more bulk labels
     if (bulkLabels) {
       console.log('bulk labels found in issue...')
