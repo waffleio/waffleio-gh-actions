@@ -32,7 +32,7 @@ async function bulkLabelAdd() {
   //if an issue was opened, edited, or reopened
   if (eventAction === 'opened') {
     //check if there are bulk labels
-    const bulkLabels = helpers.getBulkLabels(eventIssueBody)
+    const bulkLabels = await helpers.getBulkLabels(eventIssueBody)
 
     //if one or more bulk labels
     if (bulkLabels) {
