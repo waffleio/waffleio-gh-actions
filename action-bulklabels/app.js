@@ -60,6 +60,8 @@ async function bulkLabelAdd() {
               eventIssueNumber,
               repoLabel.name
             )
+          } else {
+            console.log(`no match: ${issueLabel} vs ${repoLabel.shortName} `)
           }
         }
       }
