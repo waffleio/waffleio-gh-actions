@@ -26,6 +26,7 @@ module.exports.getBulkLabels = function(eventIssueBody) {
   const matches = regex.exec(eventIssueBody)
   if (matches) {
     console.log(`getBulkLabels - matches`)
+    console.log(`matches: ${matches}`)
     return matches[0].slice(1, matches[0].length - 1).split(', ')
   } else {
     console.log(`getBulkLabels - NO matches`)
