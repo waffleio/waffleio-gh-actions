@@ -23,15 +23,12 @@ async function bulkLabelAdd() {
     '..' + process.env.GITHUB_EVENT_PATH
   )
 
-  const eventJSON = eventData
-
   console.log(`eventData: ${eventData}`)
-  console.log(`eventJSON: ${eventJSON}`)
 
   //set eventAction and eventIssueNumber
-  eventAction = eventJSON.action
-  eventIssueNumber = eventJSON.issue.number
-  eventIssueBody = eventJSON.issue.body
+  eventAction = eventData.action
+  eventIssueNumber = eventData.issue.number
+  eventIssueBody = eventData.issue.body
 
   //if an issue was opened, edited, or reopened
   if (eventAction === 'opened') {
