@@ -1,204 +1,180 @@
-
 const app = require('../app')
 const helpers = require('../helpers')
 
 jest.mock('../helpers')
 
 describe('checklistChecker', () => {
-    afterEach(() => {
-        jest.resetAllMocks()
-      });
-      
-    it('should add label on opened event if incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()      
-        eventData = `{
+  afterEach(() => {
+    jest.resetAllMocks()
+  })
+
+  it('should add 1 label on issue opened event if there is 1 bulk label', async () => {
+    let eventData, repoLabels
+    helpers.readFilePromise = jest.fn(() => eventData)
+    helpers.getBulkLabels = jest.fn(() => bulkLabels)
+    helpers.getRepoLabels = jest.fn(() => repoLabels)
+    helpers.addShortLabelName = jest.fn(() => repoShortLabels)
+    helpers.addLabel = jest.fn()
+    eventData = `{
             "action": "opened",
             "issue": {
                 "id": 376593094,
                 "number": 19,
                 "title": "newissue3",
                 "state": "open",
-                "body": "checklist - [x] to do - [ ] to do"
+                "body": "to do\\r\\n- [ ] thing\\r\\n- [x] thing\\r\\n\\r\\n[bug]"
             }
         }`
-        isIncompleteChecklist = true
-
-        await app.checklistChecker()
-
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.addLabel).toHaveBeenCalledTimes(1)
-    })
-    
-    it('should add label on edit event if incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()
-        eventData = `{
-            "action": "edited",
-            "issue": {
-                "id": 376593094,
-                "number": 19,
-                "title": "newissue3",
-                "state": "open",
-                "body": "checklist - [x] to do - [ ] to do"
+    bulkLabels = ['bug']
+    repoLabels = `[
+            {
+              "name": "bug"
+            },
+            {
+              "name": "enhancement"
             }
-        }`
-        isIncompleteChecklist = true
+          ]`
+    repoShortLabels = [
+      {
+        name: 'bug',
+        shortLabelName: 'bug'
+      },
+      {
+        name: 'enhancement',
+        shortLabelName: 'enh'
+      }
+    ]
 
-        await app.checklistChecker()
+    await app.bulkLabelAdd()
 
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.addLabel).toHaveBeenCalledTimes(1)
-    })
+    expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
+    expect(helpers.getBulkLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.getRepoLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.addShortLabelName).toHaveBeenCalledTimes(1)
+    expect(helpers.addLabel).toHaveBeenCalledTimes(1)
+  })
 
-    it('should add label on reopened event if incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()
-        eventData = `{
-            "action": "reopened",
-            "issue": {
-                "id": 376593094,
-                "number": 19,
-                "title": "newissue3",
-                "state": "open",
-                "body": "checklist - [x] to do - [ ] to do"
-            }
-        }`
-        isIncompleteChecklist = true
-
-        await app.checklistChecker()
-
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.addLabel).toHaveBeenCalledTimes(1)
-    })
-
-    it('should remove label on opened event if NO incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()      
-        eventData = `{
+  it('should add 2 labels on issue opened event if there are 2 bulk labels', async () => {
+    let eventData, repoLabels
+    helpers.readFilePromise = jest.fn(() => eventData)
+    helpers.getBulkLabels = jest.fn(() => bulkLabels)
+    helpers.getRepoLabels = jest.fn(() => repoLabels)
+    helpers.addShortLabelName = jest.fn(() => repoShortLabels)
+    helpers.addLabel = jest.fn()
+    eventData = `{
             "action": "opened",
             "issue": {
                 "id": 376593094,
                 "number": 19,
                 "title": "newissue3",
                 "state": "open",
-                "body": "checklist - [x] to do - [x] to do"
+                "body": "to do\\r\\n- [ ] thing\\r\\n- [x] thing\\r\\n\\r\\n[bug, enh]"
             }
         }`
-        isIncompleteChecklist = false
+    bulkLabels = ['bug', 'enh']
+    repoLabels = `[
+            {
+              "name": "bug"
+            },
+            {
+              "name": "enhancement"
+            }
+          ]`
+    repoShortLabels = [
+      {
+        name: 'bug',
+        shortLabelName: 'bug'
+      },
+      {
+        name: 'enhancement',
+        shortLabelName: 'enh'
+      }
+    ]
 
-        await app.checklistChecker()
+    await app.bulkLabelAdd()
 
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.removeLabel).toHaveBeenCalledTimes(1)
-    })
-    
-    it('should remove label on edit event if NO incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()
-        eventData = `{
-            "action": "edited",
+    expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
+    expect(helpers.getBulkLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.getRepoLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.addShortLabelName).toHaveBeenCalledTimes(1)
+    expect(helpers.addLabel).toHaveBeenCalledTimes(2)
+  })
+
+  it('should NOT add a label on issue opened event if the bulk label does NOT exist in the repo', async () => {
+    let eventData, repoLabels
+    helpers.readFilePromise = jest.fn(() => eventData)
+    helpers.getBulkLabels = jest.fn(() => bulkLabels)
+    helpers.getRepoLabels = jest.fn(() => repoLabels)
+    helpers.addShortLabelName = jest.fn(() => repoShortLabels)
+    helpers.addLabel = jest.fn()
+    eventData = `{
+            "action": "opened",
             "issue": {
                 "id": 376593094,
                 "number": 19,
                 "title": "newissue3",
                 "state": "open",
-                "body": "checklist - [x] to do - [x] to do"
+                "body": "to do\\r\\n- [ ] thing\\r\\n- [x] thing\\r\\n\\r\\n[bug]"
             }
         }`
-        isIncompleteChecklist = false
+    bulkLabels = ['bug']
+    repoLabels = `[
+            {
+              "name": "enhancement"
+            }
+          ]`
+    repoShortLabels = [
+      {
+        name: 'enhancement',
+        shortLabelName: 'enh'
+      }
+    ]
 
-        await app.checklistChecker()
+    await app.bulkLabelAdd()
 
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.removeLabel).toHaveBeenCalledTimes(1)
-    })
+    expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
+    expect(helpers.getBulkLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.getRepoLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.addShortLabelName).toHaveBeenCalledTimes(1)
+    expect(helpers.addLabel).toHaveBeenCalledTimes(0)
+  })
 
-    it('should remove label on reopened event if NO incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()
-        eventData = `{
-            "action": "reopened",
+  it('should NOT add a label on issue opened event if there is no bulk label', async () => {
+    let eventData, repoLabels
+    helpers.readFilePromise = jest.fn(() => eventData)
+    helpers.getBulkLabels = jest.fn(() => bulkLabels)
+    helpers.getRepoLabels = jest.fn(() => repoLabels)
+    helpers.addShortLabelName = jest.fn(() => repoShortLabels)
+    helpers.addLabel = jest.fn()
+    eventData = `{
+            "action": "opened",
             "issue": {
                 "id": 376593094,
                 "number": 19,
                 "title": "newissue3",
                 "state": "open",
-                "body": "checklist - [x] to do - [x] to do"
+                "body": "to do\\r\\n- [ ] thing\\r\\n- [x] thing\\r\\n\\r\\n"
             }
         }`
-        isIncompleteChecklist = false
-
-        await app.checklistChecker()
-
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.removeLabel).toHaveBeenCalledTimes(1)
-    })
-
-    it('should reopen issue add label on closed event if incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()
-        eventData = `{
-            "action": "closed",
-            "issue": {
-                "id": 376593094,
-                "number": 19,
-                "title": "newissue3",
-                "state": "open",
-                "body": "checklist - [x] to do - [x] to do"
+    bulkLabels = []
+    repoLabels = `[
+            {
+              "name": "enhancement"
             }
-        }`
-        isIncompleteChecklist = true
+          ]`
+    repoShortLabels = [
+      {
+        name: 'enhancement',
+        shortLabelName: 'enh'
+      }
+    ]
 
-        await app.checklistChecker()
+    await app.bulkLabelAdd()
 
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.reopenIssue).toHaveBeenCalledTimes(1)
-        expect(helpers.addLabel).toHaveBeenCalledTimes(1)
-    })
-
-    it('should remove label on closed event if NO incomplete checklist items', async () => {
-        let eventData, isIncompleteChecklist
-        helpers.readFilePromise = jest.fn(() => eventData)
-        helpers.checkForIncompleteChecklist = jest.fn(() => isIncompleteChecklist)
-        helpers.addLabel = jest.fn()
-        eventData = `{
-            "action": "closed",
-            "issue": {
-                "id": 376593094,
-                "number": 19,
-                "title": "newissue3",
-                "state": "open",
-                "body": "checklist - [x] to do - [x] to do"
-            }
-        }`
-        isIncompleteChecklist = false
-
-        await app.checklistChecker()
-
-        expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
-        expect(helpers.checkForIncompleteChecklist).toHaveBeenCalledTimes(1)
-        expect(helpers.removeLabel).toHaveBeenCalledTimes(1)
-    })
+    expect(helpers.readFilePromise).toHaveBeenCalledTimes(1)
+    expect(helpers.getBulkLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.getRepoLabels).toHaveBeenCalledTimes(1)
+    expect(helpers.addShortLabelName).toHaveBeenCalledTimes(1)
+    expect(helpers.addLabel).toHaveBeenCalledTimes(0)
+  })
 })

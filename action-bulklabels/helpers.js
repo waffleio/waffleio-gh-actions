@@ -25,11 +25,8 @@ module.exports.getBulkLabels = function(eventIssueBody) {
   const regex = RegExp(/^\[(.*){3}\]/m)
   const matches = regex.exec(eventIssueBody)
   if (matches) {
-    console.log(`getBulkLabels - matches`)
-    console.log(`matches: ${matches}`)
     return matches[0].slice(1, matches[0].length - 1).split(', ')
   } else {
-    console.log(`getBulkLabels - NO matches`)
     return matches
   }
 }
@@ -57,20 +54,27 @@ module.exports.addLabel = function(
 }
 
 module.exports.getRepoLabels = async function(octokit, eventOwner, eventRepo) {
-  return octokit.issues
-    .listLabelsForRepo({
+  let repoLabels = []
+
+  try {
+    repoLabels = await octokit.issues.listLabelsForRepo({
       owner: eventOwner,
       repo: eventRepo
     })
-    .then(({ data, headers, status }) => {
-      return data
-    })
-    .catch(err => {
-      console.log(err)
-    })
+
+    return repoLabels
+  } catch (err) {
+    console.log(`ERROR: ${err}`)
+  }
+
+  return repoLabels
 }
 
-module.exports.getShortLabelName = async function(label) {
-  label.shortName = label.name.slice(0, 3)
-  return label
+module.exports.addShortLabelName = async function(repoLabels) {
+  repoLabels = await repoLabels.map(repoLabel => {
+    repoLabel.shortLabelName = repoLabel.name.slice(0, 3)
+    return repoLabel
+  })
+
+  return repoLabels
 }

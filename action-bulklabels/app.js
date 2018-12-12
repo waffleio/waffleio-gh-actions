@@ -22,21 +22,17 @@ async function bulkLabelAdd() {
   const eventData = await helpers.readFilePromise(
     '..' + process.env.GITHUB_EVENT_PATH
   )
-
-  console.log(`eventData: ${typeof eventData}`)
+  const eventJSON = JSON.parse(eventData)
 
   //set eventAction and eventIssueNumber
-  eventAction = eventData.action
-  eventIssueNumber = eventData.issue.number
-  eventIssueBody = eventData.issue.body
+  eventAction = eventJSON.action
+  eventIssueNumber = eventJSON.issue.number
+  eventIssueBody = eventJSON.issue.body
 
   //if an issue was opened, edited, or reopened
   if (eventAction === 'opened') {
     //check if there are bulk labels
     const bulkLabels = await helpers.getBulkLabels(eventIssueBody)
-
-    console.log(`Event Issue Body: ${eventIssueBody}`)
-    console.log(`bulkLabels: ${bulkLabels}`)
 
     //if one or more bulk labels
     if (bulkLabels) {
@@ -48,13 +44,13 @@ async function bulkLabelAdd() {
         eventRepo
       )
 
-      const repoShortLabels = await Promise.all(
-        repoLabels.map(helpers.getShortLabelName)
-      )
+      const repoShortLabels = await helpers.addShortLabelName(repoLabels)
 
       for (const issueLabel of bulkLabels) {
         for (const repoLabel of repoShortLabels) {
-          if (issueLabel.toLowerCase() === repoLabel.shortName.toLowerCase()) {
+          if (
+            issueLabel.toLowerCase() === repoLabel.shortLabelName.toLowerCase()
+          ) {
             console.log('issue label matches repo issue; labeling...')
 
             helpers.addLabel(
@@ -64,15 +60,9 @@ async function bulkLabelAdd() {
               eventIssueNumber,
               repoLabel.name
             )
-          } else {
-            console.log(
-              `no match: ${issueLabel.toLowerCase()} vs ${repoLabel.shortName.toLowerCase()} `
-            )
           }
         }
       }
-    } else {
-      console.log('NO bulk labels found in issue...')
     }
   }
 }
