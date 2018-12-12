@@ -1,9 +1,9 @@
 FROM node:8-slim
 
-LABEL "com.github.actions.name"="Commit Issue Commenter"
-LABEL "com.github.actions.description"="Comment on issue from commit messages."
-LABEL "com.github.actions.icon"="mic"
-LABEL "com.github.actions.color"="purple"
+LABEL "com.github.actions.name"="Bulk Labels"
+LABEL "com.github.actions.description"="A GitHub Action to bulk add labels when creating a new issue."
+LABEL "com.github.actions.icon"="tag"
+LABEL "com.github.actions.color"="yellow"
 
 LABEL "repository"="http://github.com/waffleio/gh-actions"
 LABEL "homepage"="http://www.waffle.io"
