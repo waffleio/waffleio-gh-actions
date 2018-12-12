@@ -75,25 +75,28 @@ describe('getRepoLabels', () => {
     ]
     let octokit = {
       issues: {
-        listLabelsForRepo: jest.fn().mockResolvedValue(repoLabels)
+        listLabelsForRepo: jest.fn().mockResolvedValue({ data: repoLabels })
       }
     }
 
     const result = await helpers.getRepoLabels(octokit, 'waffleio', 'waffle.io')
+
     expect(octokit.issues.listLabelsForRepo).toHaveBeenCalledTimes(1)
+    expect(result).toBe(repoLabels)
   })
 
   it('should return an array of 0 labels if 0 labels exist in repo', async () => {
     const repoLabels = []
     let octokit = {
       issues: {
-        listLabelsForRepo: jest.fn().mockResolvedValue(repoLabels)
+        listLabelsForRepo: jest.fn().mockResolvedValue({ data: repoLabels })
       }
     }
 
     const result = await helpers.getRepoLabels(octokit, 'waffleio', 'waffle.io')
 
     expect(octokit.issues.listLabelsForRepo).toHaveBeenCalledTimes(1)
+    expect(result).toBe(repoLabels)
   })
 })
 
