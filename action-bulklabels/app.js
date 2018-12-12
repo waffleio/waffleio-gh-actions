@@ -23,7 +23,7 @@ async function bulkLabelAdd() {
     '..' + process.env.GITHUB_EVENT_PATH
   )
 
-  const eventJSON = JSON.parse(eventData)
+  const eventJSON = eventData
 
   console.log(`eventData: ${eventData}`)
   console.log(`eventJSON: ${eventJSON}`)
