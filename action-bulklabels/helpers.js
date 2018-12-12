@@ -68,6 +68,7 @@ module.exports.getRepoLabels = async function(octokit, eventOwner, eventRepo) {
 }
 
 module.exports.addShortLabelName = async function(repoLabels) {
+  console.log(`repoLabels: ${JSON.stringify(repoLabels)}`)
   repoLabel = await repoLabels.map(repoLabel => {
     repoLabel.shortLabelName = repoLabel.name.slice(0, 3)
     return repoLabel
