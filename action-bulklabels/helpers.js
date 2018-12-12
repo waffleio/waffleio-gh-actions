@@ -54,27 +54,24 @@ module.exports.addLabel = function(
 }
 
 module.exports.getRepoLabels = async function(octokit, eventOwner, eventRepo) {
-  let repoLabels = []
-
-  try {
-    repoLabels = await octokit.issues.listLabelsForRepo({
+  return octokit.issues
+    .listLabelsForRepo({
       owner: eventOwner,
       repo: eventRepo
     })
-
-    return repoLabels
-  } catch (err) {
-    console.log(`ERROR: ${err}`)
-  }
-
-  return repoLabels
+    .then(({ data, headers, status }) => {
+      return data
+    })
+    .catch(err => {
+      console.log(err)
+    })
 }
 
 module.exports.addShortLabelName = async function(repoLabels) {
-  repoLabels = await repoLabels.map(repoLabel => {
+  repoLabel = await repoLabels.map(repoLabel => {
     repoLabel.shortLabelName = repoLabel.name.slice(0, 3)
     return repoLabel
   })
 
-  return repoLabels
+  return repoLabel
 }
