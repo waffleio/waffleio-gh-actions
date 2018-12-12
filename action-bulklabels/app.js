@@ -53,7 +53,7 @@ async function bulkLabelAdd() {
 
       for (const issueLabel of bulkLabels) {
         for (const repoLabel of repoShortLabels) {
-          if (issueLabel === repoLabel.shortName) {
+          if (issueLabel.toLowerCase() === repoLabel.shortName.toLowerCase()) {
             console.log('issue label matches repo issue; labeling...')
 
             helpers.addLabel(
@@ -64,7 +64,9 @@ async function bulkLabelAdd() {
               repoLabel.name
             )
           } else {
-            console.log(`no match: ${issueLabel} vs ${repoLabel.shortName} `)
+            console.log(
+              `no match: ${issueLabel.toLowerCase()} vs ${repoLabel.shortName.toLowerCase()} `
+            )
           }
         }
       }
