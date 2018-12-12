@@ -80,10 +80,7 @@ describe('getRepoLabels', () => {
     }
 
     const result = await helpers.getRepoLabels(octokit, 'waffleio', 'waffle.io')
-
     expect(octokit.issues.listLabelsForRepo).toHaveBeenCalledTimes(1)
-    expect(result[0].name).toBe('bug')
-    expect(result[1].name).toBe('enhancement')
   })
 
   it('should return an array of 0 labels if 0 labels exist in repo', async () => {
@@ -97,6 +94,29 @@ describe('getRepoLabels', () => {
     const result = await helpers.getRepoLabels(octokit, 'waffleio', 'waffle.io')
 
     expect(octokit.issues.listLabelsForRepo).toHaveBeenCalledTimes(1)
+  })
+})
+
+describe('addShortLabelName', () => {
+  it('should return an array of labels with a shortLabelName property for each label', async () => {
+    const repoLabels = [
+      {
+        name: 'bug'
+      },
+      {
+        name: 'enhancement'
+      }
+    ]
+
+    const result = await helpers.addShortLabelName(repoLabels)
+
+    expect(result[0].shortLabelName).toBe('bug')
+  })
+
+  it('should return an array of 0 labels if 0 labels exist in repo', async () => {
+    const repoLabels = []
+
+    const result = await helpers.addShortLabelName(repoLabels)
     expect(result.length).toBe(0)
   })
 })
