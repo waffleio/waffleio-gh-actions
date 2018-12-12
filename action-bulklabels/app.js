@@ -23,7 +23,7 @@ async function bulkLabelAdd() {
     '..' + process.env.GITHUB_EVENT_PATH
   )
 
-  console.log(`eventData: ${eventData}`)
+  console.log(`eventData: ${typeof eventData}`)
 
   //set eventAction and eventIssueNumber
   eventAction = eventData.action
