@@ -29,7 +29,7 @@ action "AddComment" {
 }
 ```
 3. Create a new issue!  
-4. Clock on the Actions tab in your repo.  You should see a new action that was recently triggered when you created the new issue.  After a few seconds, there should be a comment on your issue.
+4. Click on the Actions tab in your repo.  You should see a new action that was recently triggered when you created the new issue.  After a few seconds, there should be a comment on your issue.
 
 ### Debugging
 If you've followed the steps above and it isn't working, trying the following:
