@@ -31,11 +31,11 @@ action "PRClosedLabeler" {
 
 ## Examples
 
-Example of issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
-![GitHub Logo](./docs/issuewlabel.png)
+Example of PR that is merged and closed:
+![GitHub Logo](./docs/merged.png)
 
-Example of re-opened issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
-![GitHub Logo](./docs/issuereopened.png)
+Example of PR that is closed but was not merged:
+![GitHub Logo](./docs/closed.png)
 
 ## Extending
 
@@ -54,7 +54,7 @@ See [extending](../README.md#extending) in main README.
 ```bash
 export GITHUB_TOKEN="12345"
 export GITHUB_REPOSITORY="adamzolyak/actions-playground"
-export GITHUB_EVENT_PATH="/action-checklistchecker/tests/fixtures/actionTrigger.json"
+export GITHUB_EVENT_PATH="/action-prmergelabel/tests/fixtures/actionTrigger.json"
 
 node index.js
 ```
