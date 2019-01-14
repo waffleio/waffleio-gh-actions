@@ -1,10 +1,10 @@
 # 🚗 PR Closed Labeler - GitHub Action
 
-A [GitHub Action](https://github.com/features/actions) that labels PRs when they are closed as either merged or not merged 🚗 .
+A [GitHub Action](https://github.com/features/actions) that labels pull requests when they are closed as either merged or not merged 🚗 .
 
 ## How It Works
 
-This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo. The action checks if there are incomplete checklist items `- [ ] to do` in markdown in the issue's description. If there is 1 or > incomplete checklist items, the action labels the issue with "Incomplete Items". Also, if the issue is closed with incomplete checklist items, the action will reopen the issue and comment on the issue.
+This GitHub Action runs when an [`pull_request` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo. The action checks if pull request was closed. If the pull request was closed and marged it applies the `prMergedLabel`. If the pull request was closed but not merged it applies the `prNotMergedLabel`. Note: if the pull request is closed but not merged and the branch is deleted before the action finishing running, the action run will be canceled.
 
 ## Installation
 
@@ -22,12 +22,12 @@ workflow "PR Closed Labeler" {
 }
 
 action "PRClosedLabeler" {
-  uses = "waffleio/gh-actions/action-prmergelabel@prClosedNotMergedLabel"
+  uses = "waffleio/gh-actions/action-prmergelabel@main"
   secrets = ["GITHUB_TOKEN"]
 }
 ```
 
-3. Whenever you create, update, close, or reopen an issue, the action will run!
+3. Whenever you close a pull request, the action will run!
 
 ## Examples
 
@@ -60,3 +60,4 @@ node index.js
 ```
 
 3. modify contents of [/tests/fixtures/actionTrigger.json](./tests/fixtures/actionTrigger.json) as needed for test data
+4. run `bash dev` to run locally
