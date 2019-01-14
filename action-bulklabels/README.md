@@ -60,4 +60,4 @@ node index.js
 ```
 
 3. modify contents of [/tests/fixtures/actionTrigger.json](./tests/fixtures/actionTrigger.json) as needed for test data
-4. run `bash dev`
+4. run `bash dev` to run locally
