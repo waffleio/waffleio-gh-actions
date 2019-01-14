@@ -27,7 +27,7 @@ async function prChecker() {
   //set eventAction and eventIssueNumber
   eventAction = eventJSON.action
   eventIssueNumber = eventJSON.pull_request.number
-  eventMerged = eventJSON.merged
+  eventMerged = eventJSON.pull_request.merged
 
   console.log('eventMerged', eventMerged)
 
@@ -48,7 +48,7 @@ async function prChecker() {
         eventIssueNumber,
         prMergedLabel
       )
-    } else {
+    } else if (!eventMerged) {
       console.log('NOT merged - apply NOT merged label')
 
       //open issue - incomplete checklist - adding label

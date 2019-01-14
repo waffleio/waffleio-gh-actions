@@ -1,7 +1,7 @@
 {
   "action": "closed",
   "pull_request": {
-    "number": 52
-  },
-  "merged": true
+    "number": 52,
+    "merged": true
+  }
 }
