@@ -26,11 +26,14 @@ async function prChecker() {
 
   //set eventAction and eventIssueNumber
   eventAction = eventJSON.action
+  eventIssueNumber = eventJSON.pull_request.number
   eventMerged = eventJSON.merged
 
+  console.log('eventMerged', eventMerged)
+
   //set label for issues with incomplete checklist items
-  const prMergedLabel = '✅ Merged'
-  const prNotMergedLabel = '⛔ Closed Without Merging'
+  const prMergedLabel = '✅ PR Merged'
+  const prNotMergedLabel = '⛔ PR Closed (Not Merged)'
 
   //check if action was closed
   if (eventAction === 'closed') {
