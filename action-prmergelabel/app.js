@@ -26,8 +26,6 @@ async function prChecker() {
 
   //set eventAction and eventIssueNumber
   eventAction = eventJSON.action
-  eventIssueNumber = eventJSON.issue.number
-  eventIssueBody = eventJSON.issue.body
   eventMerged = eventJSON.merged
 
   //set label for issues with incomplete checklist items
