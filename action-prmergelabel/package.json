@@ -1,7 +1,7 @@
 {
-  "name": "actions_checklistchecker",
+  "name": "actions_closedprlabeler",
   "version": "0.0.1",
-  "description": "A GitHub Action to make checklists more useful in issues.",
+  "description": "A GitHub Action that labels closed PRs as merged or not merged.",
   "engines": {
     "node": ">= 8.12.0"
   },

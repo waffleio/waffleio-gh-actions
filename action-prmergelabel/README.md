@@ -1,6 +1,6 @@
-# 🚗 PR Merge Labeler - GitHub Action
+# 🚗 PR Closed Labeler - GitHub Action
 
-A [GitHub Action](https://github.com/features/actions) that labels PRs as merged and closed OR closed without merge 🚗 .
+A [GitHub Action](https://github.com/features/actions) that labels PRs when they are closed as either merged or not merged 🚗 .
 
 ## How It Works
 
