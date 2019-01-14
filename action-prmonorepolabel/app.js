@@ -1,6 +1,7 @@
 console.log('started nodejs...')
 
 const helpers = require('./helpers')
+const _ = require('underscore')
 
 //require octokit rest.js
 //more info at https://github.com/octokit/rest.js
@@ -17,7 +18,7 @@ const eventOwnerAndRepo = process.env.GITHUB_REPOSITORY
 const eventOwner = helpers.getOwner(eventOwnerAndRepo)
 const eventRepo = helpers.getRepo(eventOwnerAndRepo)
 
-async function prChecker() {
+async function prMonorepoRepoLabeler() {
   //read contents of action's event.json
   const eventData = await helpers.readFilePromise(
     '..' + process.env.GITHUB_EVENT_PATH
@@ -27,41 +28,40 @@ async function prChecker() {
   //set eventAction and eventIssueNumber
   eventAction = eventJSON.action
   eventIssueNumber = eventJSON.pull_request.number
-  eventMerged = eventJSON.pull_request.merged
 
-  //set labels
-  const prMergedLabel = '✅ PR Merged'
-  const prNotMergedLabel = '⛔ PR Closed (Not Merged)'
+  //get list of files in PR
+  const prFiles = await helpers.listFiles(
+    octokit,
+    eventOwner,
+    eventRepo,
+    eventIssueNumber
+  )
 
-  //check if action was closed
-  if (eventAction === 'closed') {
-    if (eventMerged) {
-      console.log('merged - apply merged label')
+  //get monorepo repo for each file
+  prFilesRepos = prFiles.map(({ filename }) => helpers.getMonorepo(filename))
 
-      //if merged, add prMergedLabel
+  //reduce to unique repos
+  const prFilesReposUnique = _.uniq(prFilesRepos)
+
+  //add label for each monorepo repo
+  for (const repo of prFilesReposUnique) {
+    if (repo) {
+      console.log(`labeling repo: ${repo}`)
+
+      const repoLabel = `📁 Repo: ${repo}`
+
       helpers.addLabel(
         octokit,
         eventOwner,
         eventRepo,
         eventIssueNumber,
-        prMergedLabel
-      )
-    } else if (!eventMerged) {
-      console.log('NOT merged - apply NOT merged label')
-
-      //if closed but not merged, add prNotMergedLabel
-      helpers.addLabel(
-        octokit,
-        eventOwner,
-        eventRepo,
-        eventIssueNumber,
-        prNotMergedLabel
+        repoLabel
       )
     }
   }
 }
 
 //run the function
-prChecker()
+prMonorepoRepoLabeler()
 
-module.exports.prChecker = prChecker
+module.exports.prMonorepoRepoLabeler = prMonorepoRepoLabeler
