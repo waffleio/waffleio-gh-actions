@@ -3,7 +3,7 @@ const helpers = require('../helpers')
 
 jest.mock('../helpers')
 
-describe('checklistChecker', () => {
+describe('prChecker', () => {
   afterEach(() => {
     jest.resetAllMocks()
   })
