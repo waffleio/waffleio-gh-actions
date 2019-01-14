@@ -34,6 +34,14 @@ describe('getMonorepo', () => {
 
     expect(result).toBe(false)
   })
+
+  it('should return false if monorepo starts with a .', async () => {
+    const fileName = '.github/main.workflow'
+
+    const result = await helpers.getMonorepo(fileName)
+
+    expect(result).toBe(false)
+  })
 })
 
 describe('addLabel', () => {

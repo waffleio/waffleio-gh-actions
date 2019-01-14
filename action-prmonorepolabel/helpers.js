@@ -42,7 +42,7 @@ module.exports.listFiles = async function(
 }
 
 module.exports.getMonorepo = function(filePath) {
-  var regex = /([^/]*)\//
+  var regex = /^([^./]*)\//
   var found = filePath.match(regex)
 
   if (found) return found[0].substring(0, found[0].length - 1)
