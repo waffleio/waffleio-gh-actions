@@ -45,7 +45,7 @@ module.exports.getParent = function(eventOwner, eventRepo, eventIssueBody) {
 }
 
 module.exports.getLabels = async function(octokit, owner, repo, issueNumber) {
-  const options = octokit.issues.listLabelsForRepo.endpoint.merge({
+  const options = octokit.issues.listLabelsOnIssue.endpoint.merge({
     owner: owner,
     repo: repo,
     number: issueNumber
