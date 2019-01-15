@@ -37,11 +37,11 @@ action "MirrorLabels" {
 
 ## Examples
 
-Example of issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
-![GitHub Logo](./docs/issuewlabel.png)
+Example of parent issue with labels:
+![GitHub Logo](./docs/parent.png)
 
-Example of re-opened issue with incomplete checklist items in the description labeled with "Incomplete Tasks" label:
-![GitHub Logo](./docs/issuereopened.png)
+Example of child issue of parent issue with labels mirrored from parent issue:
+![GitHub Logo](./docs/child.png)
 
 ## Extending
 
