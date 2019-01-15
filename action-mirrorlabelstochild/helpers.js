@@ -22,7 +22,7 @@ module.exports.getRepo = function(eventOwnerAndRepo) {
 }
 
 module.exports.getParent = function(eventOwner, eventRepo, eventIssueBody) {
-  var regex = /^child of (?:([^/]*)\/([^/]*))?#([0-9]+)/im
+  var regex = /^child(?: of| to)? (?:([^/]*)\/([^/]*))?#([0-9]+)/im
   var found = eventIssueBody.match(regex)
 
   if (found) {
@@ -45,13 +45,15 @@ module.exports.getParent = function(eventOwner, eventRepo, eventIssueBody) {
 }
 
 module.exports.getLabels = async function(octokit, owner, repo, issueNumber) {
-  return await octokit.issues
-    .listLabelsOnIssue({
-      owner: owner,
-      repo: repo,
-      number: issueNumber
-    })
-    .then(({ data, headers, status }) => {
+  const options = octokit.issues.listLabelsForRepo.endpoint.merge({
+    owner: owner,
+    repo: repo,
+    number: issueNumber
+  })
+
+  return await octokit
+    .paginate(options)
+    .then(data => {
       return data
     })
     .catch(err => {

@@ -1,10 +1,16 @@
 # 👩‍👧‍👦 Mirror Labels to Child - GitHub Action
 
-A [GitHub Action](https://github.com/features/actions) that works with Waffle.io's parent / child relationships to automatically mirror labels from parents to children 👩‍👧‍👦.
+A [GitHub Action](https://github.com/features/actions) that mirrors labels from a parent issue to it's children issues 👩‍👧‍👦. The action supports the [child keywords supported by Waffle.io](https://help.waffle.io/epics/which-keywords-are-supported-with-epics) - `child #<issue_number>`, `child to #<issue_number>`, `child of #<issue_number>`. The `child <owner>/<repo>#<issue_number>` syntax is also supported for cross repo relationships.
 
 ## How It Works
 
-This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo. The action checks if there are incomplete checklist items `- [ ] to do` in markdown in the issue's description. If there is 1 or > incomplete checklist items, the action labels the issue with "Incomplete Items". Also, if the issue is closed with incomplete checklist items, the action will reopen the issue and comment on the issue.
+This GitHub Action runs when an [`issues` event webhook](https://developer.github.com/v3/activity/events/types/#issuesevent) is fired in your GitHub repo. The action checks if there is a [parent / child relationship](https://help.waffle.io/epics/which-keywords-are-supported-with-epics) between the issue and another issue. If so, the action mirrors labels from the parent issue to the child issue.
+
+Notes:
+
+- If a label is removed from a parent issue, the label is is not removed from the child issue.
+- If a label is added to the parent issue, it will be applied to the child issue the next time the child is edited.
+- If a child has multiple parents, only the lables from the child's first parent are mirrored to the child.
 
 ## Installation
 
@@ -16,13 +22,13 @@ To setup this action:
 2. Add the following code to the `main.workflow` file and commit it to the repo's `master` branch.
 
 ```
-workflow "Issue Checklist Checker" {
-  resolves = ["CheckChecklist"]
+workflow "Mirror Labels to Child Issue" {
+  resolves = ["MirrorLabels"]
   on = "issues"
 }
 
-action "CheckChecklist" {
-  uses = "waffleio/gh-actions/action-checklistchecker@master"
+action "MirrorLabels" {
+  uses = "waffleio/gh-actions/action-mirrorlabelstochild@master"
   secrets = ["GITHUB_TOKEN"]
 }
 ```
