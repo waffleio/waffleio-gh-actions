@@ -1,0 +1,9 @@
+{
+  "action": "opened",
+  "issue": {
+    "number": 49,
+    "title": "newissue3",
+    "state": "open",
+    "body": "child of #59"
+  }
+}
