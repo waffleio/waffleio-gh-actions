@@ -15,7 +15,8 @@ Fork 🍴 this repo to use as a starting point to create your own GitHub Actions
 - 💬 [Commit Issue Commenter action](/action-commitissuecommenter) - an action that adds comments to an issue from commit messages.
 - 🏷 [Bulk Labels action](/action-bulklabels) - an action that adds multiple labels to an issue from the issue's description when creating an issue. Useful when creating a lot of issues, especially children of Epics.
 - 🚗 [PR Closed Labeler](/action-prmergelabel) - an action that labels closed pull requests as either merged or closed (without merging).
-- 🚊 [Monorepo PR Repo Labeler](/action-prmonorepolabel) - ac action that labels pull requests with the repo(s) that are impacted.
+- 🚊 [Monorepo PR Repo Labeler](/action-prmonorepolabel) - an action that labels pull requests with the repo(s) that are impacted.
+- 👩‍👧‍👦 [Mirror Labels to Child](/action-mirrorlabelstochild) - an action that mirrors a parent issues's label to a child issue(s).
 
 ## Create Your Own GitHub Action
 
