@@ -1,5 +1,17 @@
 # GitHub Actions from Waffle.io 🏃🏃🏃
 
+## Notice
+
+To facilitate these GitHub Actions being more consumeable within the GitHub ecosystem, each action is being moved to it's own individual repo.  The actions in this repository will be removed from this repository on Feburary 1, 2019.  Please update your Action workflow configurations to consume these actions from the following locations:
+
+- ✅ Issue Checklist Checker action - https://github.com/adamzolyak/checklist-checker-action
+- 💬 Commit Issue Commenter action - https://github.com/adamzolyak/commit-issue-commenter-action
+- 🏷 Bulk Labels - https://github.com/adamzolyak/issue-labeler-action
+- 🚊 Monorepo PR Repo Labeler - https://github.com/adamzolyak/monorepo-pr-labeler-action
+- 👩‍👧‍👦 Mirror Labels to Child - https://github.com/adamzolyak/mirror-labels-to-child-action
+
+## Overview
+
 [GitHub Actions](https://github.com/features/actions) are a great way to automate and customize your team's workflow in GitHub 🏃.
 
 [Waffle.io](https://waffle.io/features/) is developer-first project management for GitHub, helping teams stay aligned and automate their workflow. While [WaffleBot 🤖 already automates 100,000+ actions per month](https://waffle.io/features/automation) to keep your Waffle boards update for you, our users are always asking to automate more and more things. While we'd love to automate #AllTheThings, some uses cases are specific to you and your team. [GitHub Actions](https://github.com/features/actions) are great for these use cases!
