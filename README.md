@@ -23,12 +23,6 @@ Fork 🍴 this repo to use as a starting point to create your own GitHub Actions
 ## GitHub Actions from Waffle.io
 
 - 📣 [New Issue Comment action](/action-newissuecomment) - an action that thanks contributors for creating a new issue and provide a link to your repo's CONTRIBUTING.md guidelines.
-- ✅ [Issue Checklist Checker action](/action-checklistchecker) - an action that labels issues with incomplete checklists and enforces complete checklists to close issue.
-- 💬 [Commit Issue Commenter action](/action-commitissuecommenter) - an action that adds comments to an issue from commit messages.
-- 🏷 [Bulk Labels action](/action-bulklabels) - an action that adds multiple labels to an issue from the issue's description when creating an issue. Useful when creating a lot of issues, especially children of Epics.
-- 🚗 [PR Closed Labeler](/action-prmergelabel) - an action that labels closed pull requests as either merged or closed (without merging).
-- 🚊 [Monorepo PR Repo Labeler](/action-prmonorepolabel) - an action that labels pull requests with the repo(s) that are impacted.
-- 👩‍👧‍👦 [Mirror Labels to Child](/action-mirrorlabelstochild) - an action that mirrors a parent issues's label to a child issue(s).
 
 ## Create Your Own GitHub Action
 
